@@ -167,11 +167,40 @@ footer{background:#080810;border-top:1px solid var(--border);padding:24px 64px;d
   .edu-sma-right,.edu-uni-right{align-items:flex-start;}
   .edu-uni-header{flex-direction:column;}
 }
+
+.nav-toggle{display:none;background:none;border:none;color:var(--white);cursor:pointer;padding:8px;z-index:601;position:relative;width:34px;height:34px;align-items:center;justify-content:center;}
+.nav-toggle span{display:block;width:20px;height:2px;background:var(--white);border-radius:2px;position:absolute;transition:all .3s ease;}
+.nav-toggle span:nth-child(1){transform:translateY(-6px);}
+.nav-toggle span:nth-child(3){transform:translateY(6px);}
+.nav-toggle.open span:nth-child(1){transform:rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:rotate(-45deg);}
+.menu-overlay-bg{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:550;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.menu-overlay-bg.open{opacity:1;pointer-events:all;}
+.mobile-menu{position:fixed;top:0;right:-85%;width:78%;max-width:320px;height:100%;background:rgba(14,14,20,0.98);backdrop-filter:blur(20px);z-index:600;transition:right .35s ease;border-left:1px solid var(--border);padding:96px 24px 40px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;box-shadow:-20px 0 60px rgba(0,0,0,0.5);}
+.mobile-menu.open{right:0;}
+.mm-link{display:flex;flex-direction:column;gap:3px;text-decoration:none;color:var(--white);padding:14px 16px;border-radius:8px;border:1px solid transparent;font-family:'Outfit',sans-serif;transition:all .2s;}
+.mm-link:hover{background:rgba(200,169,110,0.08);}
+.mm-link.active{background:rgba(200,169,110,0.14);border-color:rgba(200,169,110,0.4);}
+.mm-t{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--gold2);}
+.mm-sub{font-size:0.66rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);}
+@media(max-width:900px){
+  .nav-toggle{display:flex;}
+}
 </style>
 </head>
 <body>
 
-<nav><a class="nav-logo" href="index.html">Bilkis <span>Hafizha</span></a></nav>
+<nav><a class="nav-logo" href="index.html">Bilkis <span>Hafizha</span></a><button class="nav-toggle" id="navToggle" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+<div class="menu-overlay-bg" id="menuOverlayBg" onclick="toggleMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="about.html#about-section" class="mm-link" onclick="toggleMenu()"><span class="mm-t">About Me</span><span class="mm-sub">Get to know me</span></a>
+    <a href="#education-section" class="mm-link active" onclick="toggleMenu()"><span class="mm-t">Education</span><span class="mm-sub">Academic journey</span></a>
+    <a href="sertifikat.html#cert-section" class="mm-link" onclick="toggleMenu()"><span class="mm-t">Certificates</span><span class="mm-sub">Achievements</span></a>
+    <a href="project.html#proj-section" class="mm-link" onclick="toggleMenu()"><span class="mm-t">Projects</span><span class="mm-sub">What I've built</span></a>
+    <a href="skill.html#skills-section" class="mm-link" onclick="toggleMenu()"><span class="mm-t">Skills</span><span class="mm-sub">My expertise</span></a>
+</div>
+
 
 <section class="hero" id="hero-section">
   <div class="hero-bg"></div>
@@ -295,6 +324,12 @@ footer{background:#080810;border-top:1px solid var(--border);padding:24px 64px;d
 </footer>
 
 <script>
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('menuOverlayBg').classList.toggle('open');
+  document.getElementById('navToggle').classList.toggle('open');
+}
+
 function copyEmail(e) {
   navigator.clipboard.writeText('bilkishafizha2005@gmail.com').then(() => {
     const t = document.getElementById('copy-toast');
